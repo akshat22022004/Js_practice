@@ -21,9 +21,11 @@ app.post("/teas",(req,res) => {
     teaData.push(newtea);
     res.status(201).json(newtea);
 })
+// get all teas
 app.get("/teas" , (req,res) => {
     res.status(200).send(teaData);
 })
+// get tea with unique id
 // what ever comes after slash teas will be considered as id
 // if anything comes in the body we accept it as request.body.id 
 // bur suppose after teas we are sending any info and it is an id we accept it as req.params.id
@@ -65,3 +67,5 @@ app.delete("/teas/:id" , (req,res) => {
     teaData = teaData.filter(t => t.id != parseInt(req.params.id));
     res.status(200).send("Tea deleted");
 });
+
+
