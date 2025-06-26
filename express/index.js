@@ -1,9 +1,8 @@
+import 'dotenv/config';
 import express from "express";  
 
 const app = express();
-
-const port = 8000;
-
+const port = 8000 || process.env.PORT; // this is used run on 8000 or on the port 
 // any data which comes from front end is being parsed into  json using this line here.
 app.use(express.json());
 
@@ -22,15 +21,10 @@ app.post("/teas",(req,res) => {
     teaData.push(newtea);
     res.status(201).json(newtea);
 })
-
 app.get("/teas" , (req,res) => {
     res.status(200).send(teaData);
 })
-
-
 // what ever comes after slash teas will be considered as id
-
-
 // if anything comes in the body we accept it as request.body.id 
 // bur suppose after teas we are sending any info and it is an id we accept it as req.params.id
 // anything which comes from the url is in string format it should be converted into int using parseInt.
@@ -47,7 +41,6 @@ app.get("/" , (req,res) => {
 app.get("/ice-tea" , (req,res) => {
     res.send("Thanks for ordering ice tea, its really hot");
 })
-
 // update  tea
 app.put("teas/:id" , (req,res) => {
     const tea = teaData.find(t => t.id == parseInt(req.params.id));
@@ -59,9 +52,8 @@ app.put("teas/:id" , (req,res) => {
     tea.price = price;
     res.status(200).send(tea);  
 })
-
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}/`);
+    console.log(`Server running at  ${port}`);
 }); 
 // delete tea
 app.delete("/teas/:id" , (req,res) => {
@@ -73,4 +65,3 @@ app.delete("/teas/:id" , (req,res) => {
     teaData = teaData.filter(t => t.id != parseInt(req.params.id));
     res.status(200).send("Tea deleted");
 });
-
